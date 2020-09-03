@@ -27,7 +27,7 @@
 
 - 获取镜像加速url
 
-注册一个阿里云账号并登录，在`产品与服务`中搜索`容器镜像服务`，跟随引导完成必要的一些步骤，然后来到这个页面：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors，就可以看到自己专有的加速器地址了。
+注册一个阿里云账号并登录，在`产品与服务`中搜索`容器镜像服务`，跟随引导完成必要的一些步骤，然后来到这个[页面](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)，就可以看到自己专有的加速器地址了。
 
 - 给docker客户端配置镜像加速器
 
@@ -48,7 +48,7 @@ EOF
 1. https://registry.docker-cn.com
 2. http://hub-mirror.c.163.com
 3. http://docker.mirrors.ustc.edu.cn
-4. http://mirror.azure.cn/help/docker-registry-proxy-cache.html，仅限于 Azure China IP 使用
+4. http://mirror.azure.cn/help/docker-registry-proxy-cache.html
 
 ## Nodejs
 
@@ -266,7 +266,7 @@ curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos
 yum makecache
 ```
 
-**注意：**非阿里云ECS用户会出现 `Couldn't resolve host 'mirrors.cloud.aliyuncs.com' `信息，不影响使用。用户也可自行修改相关配置：
+**注意：** 非阿里云ECS用户会出现 `Couldn't resolve host 'mirrors.cloud.aliyuncs.com' `信息，不影响使用。用户也可自行修改相关配置：
 
 ```shell
 sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo
@@ -414,17 +414,17 @@ Homebrew 是一款自由及开放源代码的软件包管理系统，用以简�
 * Bash 终端配置
 
 ```shell
-    # 替换brew.git:
-    cd "$(brew --repo)"
-    git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-    # 替换homebrew-core.git:
-    cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-    git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-    # 应用生效
-    brew update
-    # 替换homebrew-bottles:
-    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
-    source ~/.bash_profile
+# 替换brew.git:
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+# 替换homebrew-core.git:
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+# 应用生效
+brew update
+# 替换homebrew-bottles:
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
 ```
 
 * 恢复默认配置
@@ -434,12 +434,12 @@ Homebrew 是一款自由及开放源代码的软件包管理系统，用以简�
 首先执行下述命令:
 
 ```shell
-	# 重置brew.git:
-	$ cd "$(brew --repo)"
-	$ git remote set-url origin https://github.com/Homebrew/brew.git
-	# 重置homebrew-core.git:
-	$ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-	$ git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+# 重置brew.git:
+cd "$(brew --repo)"
+git remote set-url origin https://github.com/Homebrew/brew.git
+# 重置homebrew-core.git:
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
 ```
 
 然后删掉 `HOMEBREW_BOTTLE_DOMAIN` 环境变量,将你终端文件`~/.bash_profile`中`HOMEBREW_BOTTLE_DOMAIN`行删掉, 并执行`source ~/.bash_profile`。
@@ -477,7 +477,7 @@ $ git clone https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git master
 source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 ```
 
-**注意：**从[`1.7.2`](http://blog.cocoapods.org/CocoaPods-1.7.2/)开始，已经完全切到`CDN`上了。[`1.8`](http://blog.cocoapods.org/CocoaPods-1.8.0-beta/)以上甚至把`CDN`作为默认源使用，在`Podfile`最上面添加即可。
+**注意：** 从[`1.7.2`](http://blog.cocoapods.org/CocoaPods-1.7.2/)开始，已经完全切到`CDN`上了。[`1.8`](http://blog.cocoapods.org/CocoaPods-1.8.0-beta/)以上甚至把`CDN`作为默认源使用，在`Podfile`最上面添加即可。
 
 ```
 source 'https://cdn.cocoapods.org/'
