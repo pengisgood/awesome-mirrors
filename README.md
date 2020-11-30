@@ -19,6 +19,7 @@
 + [Ubuntu apt](#ubuntu-apt)
 + [Homebrew](#homebrew)
 + [iOS](#ios)
++ [Git](#git)
 
 
 ## Docker
@@ -487,3 +488,69 @@ source 'https://cdn.cocoapods.org/'
 
 1. https://gitclub.cn/CocoaPods/Specs.git
 2. http://git.oschina.net/akuandev/Specs.git
+
+## Git
+
+> 以下内容摘自原仓库的说明文档，推荐优先参考原[文档](https://github.com/fastgh/fgit/blob/master/README.md)。
+
+[fgit](https://github.com/fastgh/fgit)是一个可以无缝替换git命令行的工具，使用优化线路为使用github.com加速。
+
+官方介绍的特点：
+
+* 目前实测git clone速度超过15MB/S
+* 支持github.com私有库，也支持push
+* 两种工作模式：镜像（反向代理）模式和HTTP代理模式，都是实时连接github.com，不是缓存
+* 支持包括clone/push/pull/fetch在内的各种git命令，兼容git命令行参数，可以用来无缝替换git命令行
+* 只针对github.com加速，不干扰对非github.com库的使用
+* 使用go语言开发，不是shell脚本或.bat，跨平台。Windows 10、Linux (Unbuntu)、Mac (x86)都实测通过
+
+### 安装
+
+* Mac
+
+```
+   sudo curl -L https://github.com/fastgh/fgit/releases/download/v1.0.0/fgit.darwin -o /usr/local/bin/fgit
+   sudo chmod +x /usr/local/bin/fgit
+```
+
+* Linux
+
+```
+   sudo curl -L https://github.com/fastgh/fgit/releases/download/v1.0.0/fgit.linux -o /usr/local/bin/fgit
+   sudo chmod +x /usr/local/bin/fgit
+```
+
+### 使用
+
+- 和常规的git命令行几乎相同，支持各种命令行参数
+
+- 对于公共库，clone/pull/fetch时默认使用镜像模式，基于安全考虑，镜像模式不支持push以及私有库
+
+    镜像模式例如：`fgit clone https://github.com/spring-projects/spring-boot.git --depth=1`
+
+- 两种情况会判定为需要push或者私有库，此时会使用HTTP代理模式，代理模式比镜像模式安全
+
+    1. push
+
+    2. URL中包含用户名，那么会被判定为需要push或者私有库。
+        对于clone命令，URL是从clone的URL中解析得到，对于其它git命令，则使用`git remote -v`得到
+
+    代理模式例如：
+
+    1. `fgit push origin master`
+
+    2. `fgit clone https://fastgh@github.com/fastgh/fgit.git`
+
+    也可以通过`--use-proxy`选项强制走HTTP代理模式，例如:
+
+    1. `fgit --use-proxy clone https://github.com/fastgh/fgit.git`
+
+    代理服务器的优化线路成本高，所以大家尽量使用镜像模式，以节省服务器带宽资源
+
+- 其它功能：
+
+    1. 可以打开调试开关，看一看fgit的工作过程：下载服务器列表 --> 设置镜像或代理 --> 执行git --> 回复镜像或代理
+
+    `fgit --debug clone https://github.com/fastgh/fgit.git`
+
+    2. fgit首次运行时，会在用户主目录下生成一个配置文件.fgit.json，包含服务器地址等信息，必要时可以通过设置这个文件选择接入其它服务方，或指定镜像服务器或代理服务器
